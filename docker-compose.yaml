@@ -1,0 +1,23 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "80:80"
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=34.44.131.30
+      - DB_NAME=db1
+      - DB_USER=dbuser1
+      - DB_PASS=dbuser1
+      - FLASK_ENV=development
+
+
+
+
+      
