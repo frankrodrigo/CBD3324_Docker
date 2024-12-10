@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/frankrodrigo/CBD3324_Docker.git
+    repoURL: https://github.com/frankrodrigo/CBD3324_Docker
     targetRevision: main
     path: k8s/frontend-chart
   destination:
