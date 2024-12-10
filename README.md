@@ -48,7 +48,7 @@ Ensure you have the following installed:
 
 2. **Build and run using Docker Compose:**
     ```bash
-    docker-compose up --build
+    docker compose -f docker-compose.yaml up --build -d
     ```
     The frontend will be accessible at http://localhost, and the backend API will be running on port 5000.
 
