@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+  mariadb:
+    image: mariadb:10.6
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: db1
+      MYSQL_USER: dbuser1
+      MYSQL_PASSWORD: dbuser1
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./backend/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    networks:
+      - app-network
+
+  backend:
+    image: backend:latest
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: mariadb
+      DB_NAME: db1
+      DB_USER: dbuser1
+      DB_PASS: dbuser1
+    depends_on:
+      - mariadb
+    networks:
+      - app-network
+
+  frontend:
+    image: frontend:latest
+    ports:
+      - "80:80"
+    environment:
+      BACKEND_URL: backend:5000
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  mariadb_data:
+
+networks:
+  app-network:
+    driver: overlay
