@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mariadb-chart
+description: A Helm chart for deploying MariaDB
+type: application
+version: 1.0.0
+appVersion: "10.6"
