@@ -39,3 +39,10 @@ spec:
             secretKeyRef:
               name: mariadb-secret
               key: db-password
+        volumeMounts:
+        - name: initdb
+          mountPath: /docker-entrypoint-initdb.d
+      volumes:
+      - name: initdb
+        configMap:
+          name: mariadb-config

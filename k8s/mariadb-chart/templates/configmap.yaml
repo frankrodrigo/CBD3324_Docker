@@ -6,3 +6,11 @@ metadata:
 data:
   db-name: db1
   db-user: dbuser1
+  init_db.sql: |
+    CREATE TABLE IF NOT EXISTS users (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      username VARCHAR(255) NOT NULL,
+      cellphone VARCHAR(15) NOT NULL
+    );
+    INSERT INTO users (username, cellphone) VALUES ('John Doe', '1234567890');
+    INSERT INTO users (username, cellphone) VALUES ('Jane Smith', '9876543210');

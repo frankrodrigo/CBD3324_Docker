@@ -13,3 +13,8 @@ db:
 service:
   type: ClusterIP
   port: 3306
+
+initDbScript:
+  enabled: true
+  configMapName: mariadb-config
+  fileName: init_db.sql
