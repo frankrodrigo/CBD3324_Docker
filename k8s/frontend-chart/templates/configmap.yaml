@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: frontend
+data:
+  backend-url: backend.backend.svc.cluster.local:5000

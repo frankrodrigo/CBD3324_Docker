@@ -1,0 +1,15 @@
+replicaCount: 1
+image:
+  repository: mariadb
+  tag: "10.6"
+  pullPolicy: IfNotPresent
+
+db:
+  name: db1
+  user: dbuser1
+  password: dbuser1
+  rootPassword: rootpassword
+
+service:
+  type: ClusterIP
+  port: 3306

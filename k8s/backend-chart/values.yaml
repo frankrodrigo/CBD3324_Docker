@@ -1,0 +1,15 @@
+replicaCount: 1
+image:
+  repository: ghcr.io/frankrodrigo/backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+db:
+  host: mariadb.mariadb.svc.cluster.local
+  name: db1
+  user: dbuser1
+  password: dbuser1
+
+service:
+  type: ClusterIP
+  port: 5000
