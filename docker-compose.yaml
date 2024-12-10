@@ -1,23 +1,41 @@
-version: '3'
+version: '3.8'
 services:
   frontend:
     build:
       context: ./frontend
     ports:
       - "80:80"
+    environment:
+      - BACKEND_URL=http://localhost:5000  # Set backend URL here
+    depends_on:
+      - backend
+
   backend:
     build:
       context: ./backend
     ports:
       - "5000:5000"
     environment:
-      - DB_HOST=34.44.131.30
+      - DB_HOST=mariadb
       - DB_NAME=db1
       - DB_USER=dbuser1
       - DB_PASS=dbuser1
       - FLASK_ENV=development
+    depends_on:
+      - mariadb
 
+  mariadb:
+    image: mariadb:10.6
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: db1
+      MYSQL_USER: dbuser1
+      MYSQL_PASSWORD: dbuser1
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./backend/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
 
-
-
-      
+volumes:
+  mariadb_data:  # Define the named volume here

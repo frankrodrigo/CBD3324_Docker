@@ -1,5 +1,5 @@
+import pymysql
 from flask import Flask, request, jsonify
-import pyodbc
 from flask_cors import CORS
 import os
 
@@ -7,14 +7,18 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS to allow frontend requests
 
 # Database connection details
-server = os.getenv('DB_HOST')  # Use a default value if the variable is not set
-database = os.getenv('DB_NAME')
-username = os.getenv('DB_USER')
-password = os.getenv('DB_PASS')
+DB_HOST = os.getenv('DB_HOST', 'localhost')
+DB_NAME = os.getenv('DB_NAME', 'db1')
+DB_USER = os.getenv('DB_USER', 'dbuser1')
+DB_PASS = os.getenv('DB_PASS', 'dbuser1')
 
 def get_db_connection():
-    conn_str = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password}'
-    conn = pyodbc.connect(conn_str)
+    conn = pymysql.connect(
+        host=DB_HOST,
+        user=DB_USER,
+        password=DB_PASS,
+        database=DB_NAME
+    )
     return conn
 
 @app.route('/add_user', methods=['POST'])
@@ -30,7 +34,7 @@ def add_user():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO users (username, cellphone) VALUES (?, ?)", (username, cellphone))
+        cursor.execute("INSERT INTO users (username, cellphone) VALUES (%s, %s)", (username, cellphone))
         conn.commit()
         return jsonify({'message': 'User added successfully'}), 201
     except Exception as e:

@@ -1,8 +1,9 @@
 const form = document.getElementById('userForm');
 const tableBody = document.querySelector('#userTable tbody');
 
-// Update the URL to use the backend service name
-const backendUrl = 'http://34.134.154.5:5000'; 
+
+const backendUrl = '/api';  // Proxy API requests to the backend via NGINX
+
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();

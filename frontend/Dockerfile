@@ -1,4 +1,7 @@
 FROM nginx:alpine
 
-# Copy all files from the current directory to NGINX
-COPY . /usr/share/nginx/html/
+# Copy static files
+COPY . /usr/share/nginx/html
+
+# Copy custom NGINX config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
