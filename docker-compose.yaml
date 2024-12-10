@@ -6,7 +6,7 @@ services:
     ports:
       - "80:80"
     environment:
-      - BACKEND_URL=http://localhost:5000  # Set backend URL here
+      - BACKEND_URL=backend:5000  # Set backend URL here
     depends_on:
       - backend
 
